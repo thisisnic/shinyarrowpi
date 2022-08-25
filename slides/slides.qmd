@@ -1,0 +1,13 @@
+---
+title: "Shiny, arrow and R4Pi"
+author: "Nic Crane & Mark Sellors"
+format:
+  revealjs:
+    incremental: true   
+    theme: league
+---
+
+{{< include _r4pi.qmd >}}
+
+{{< include _arrow.qmd >}}
+
