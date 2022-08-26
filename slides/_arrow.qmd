@@ -1,3 +1,36 @@
+---
+title: "Arrow"
+format: revealjs
+---
+
 ## Introducing Arrow
 
-...
+* larger than memory data
+* Acero
+* datasets
+* R bindings to dplyr and tidyverse functions
+  * lubridate
+  * stringr
+  * request any which aren't implemented that you'd like!
+  
+## Arrow
+
+* larger-than-memory != big data (necessarily)
+
+
+::: {.notes}
+* when demonstrating Arrow we often use New York taxis dataset (describe)
+* then show a dplyr pipeline and some sort of timed comparison running with in dplyr and loading it all into memory versus with Arrow
+:::
+
+## Why Arrow on Pi?
+
+* can analyse all your daya, not just what can fit in memory
+* local monitoring can have longer history
+* analyse logs with Datasets API
+
+## Let's see this in action
+
+::: {.notes}
+* show the local monitoring Shiny app
+:::
