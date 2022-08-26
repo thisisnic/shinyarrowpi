@@ -33,4 +33,5 @@ format: revealjs
 
 ::: {.notes}
 * show the local monitoring Shiny app
+* show simulations of analyses on 1Gb RAM machines??
 :::
