@@ -25,13 +25,20 @@ format: revealjs
 
 ## Why Arrow on Pi?
 
-* can analyse all your daya, not just what can fit in memory
+* can analyse all your data, not just what can fit in memory
 * local monitoring can have longer history
 * analyse logs with Datasets API
+
+## Why Arrow and Shiny
+
+* talk about case studies
 
 ## Let's see this in action
 
 ::: {.notes}
 * show the local monitoring Shiny app
 * show simulations of analyses on 1Gb RAM machines??
+* show the S3 functionality of the global Shiny app (normally you'd have to pull all of it into your app or manage it in a DB)
 :::
+ 
+ 10-12 mins each
