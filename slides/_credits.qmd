@@ -1,0 +1,31 @@
+## About us...{.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Nic Crane
+
+* Badass
+* Arrow R package contributor
+
+Useful links:
+
+* Twitter: [@nic_crane](https://twitter.com/nic_crane)
+* Blog: [thisisnic.github.io](https://thisisnic.github.io)
+:::
+
+::: {.column width="50%"}
+### Mark Sellors
+
+* 🧑‍💻 R4Pi ([r4pi.org](https://r4pi.org))
+* 🌞 RStudio (Soon to be Posit)
+* 👨‍💼 Data Orchard
+
+Useful links:
+
+* Twitter: [@sellorm](https://twitter.com/sellorm)
+* Blog: [blog.sellorm.com](https://blog.sellorm.com)
+
+:::
+
+::::

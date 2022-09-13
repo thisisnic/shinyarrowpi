@@ -4,19 +4,140 @@
 * What is it?
 * Why should you care?
 
+::: {.notes}
+Nic and I will describe an IoT project, built using a variety of tools, but all surfaced in a couple of Shiny apps.
+Whilst you might not be that interested in the project as a whole, hopefully there's something in amongst all of this that you can take away for your own Shiny applications.
+:::
+
+
+
+
+
 ## Project overview
 
-* what are the components?
+Home office air quality study
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+
+
+
 
 ## What does this look like?
 
+<br />
+<br />
+
 ```{mermaid}
-flowchart LR
-  A[Hard edge] --> B(Round edge)
-  B --> C{Decision}
-  C --> D[Result one]
-  C --> E[Result two]
+  flowchart LR;
+      A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
+      E --> F(Create model)
+      F --> G
+      E --> G(Production Shiny app)
+      A --recent data--> H(Local monitoring Shiny app)
 ```
+
+::: {.notes}
+* we have sensors reading data
+* those sensors need to be able to be read locally
+* data from the sensors needs to be aggregated upwards and combined with other data
+  - local weather etc
+
+The aggregated data can then be used to model ventilation recommendations, provide early wanrings and so on.
+ # linkStyle 0 stroke-width:5px,fill:none,stroke:blue;
+:::
+
+
+
+
+
+## Sensor Bundle
+
+<br />
+<br />
+
+```{mermaid}
+  flowchart LR;
+      A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
+      E --> F(Create model)
+      F --> G
+      E --> G(Production Shiny app)
+      A --recent data--> H(Local monitoring Shiny app)
+      style A fill:#f00,stroke:#333,stroke-width:4px,color:white
+```
+
+::: {.notes}
+:::
+
+
+
+## Sensor Bundle continued...
+
+Big old picture of the sensor package and details of what it does
+
+::: {.notes}
+* What is it
+* Where did it come from
+* What does it do
+:::
+
+
+
+
+
+## Sensor output
+
+Sample of the output
+
+::: {.notes}
+* What does it tell us?
+:::
+
+
+
+
+
+## Local Monitoring Shiny App
+
+<br />
+<br />
+
+```{mermaid}
+  flowchart LR;
+      A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
+      E --> F(Create model)
+      F --> G
+      E --> G(Production Shiny app)
+      A --recent data--> H(Local monitoring Shiny app)
+      style H fill:#f00,stroke:#333,stroke-width:4px,color:white
+```
+
+::: {.notes}
+* Each node has a shiny app that presents data to local users
+* This is where the r4pi project comes in
+:::
+
+
+
+
+
+
+
+## Running R on a Raspberry Pi
+
+Brief overview of the R4Pi project
+
+::: {.notes}
+* What is it
+* What's the point of it
+* How does it benefit R users
+:::
+
+
+
+
 
 ## Anatomy of an IoT project
 
@@ -25,21 +146,38 @@ flowchart LR
 * Examples:
   - Barcode scanning and stock control
   - If hospitals had network connected medicine fridges, the could use the fridges to report on inventory and start to predict when they will need more stock.
-  
-## Sensors
 
-* What are they?
-* What do they record?
-* How is that data captured
+::: {.notes}
+At this point it's worth taking a step back and thinking about what we're discussing here.
+We only have a single sensor bundle, but the architecture we're talking about could easily support thousands.
+:::
 
-## Running R on a Raspberry Pi
 
-* It's easy
-* It's fun!
 
-## local shiny app
 
-* Each sensor node has a shiny app to present the data to any local users
+
+
+## Data storage
+
+<br />
+<br />
+
+```{mermaid}
+  flowchart LR;
+      A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
+      E --> F(Create model)
+      F --> G
+      E --> G(Production Shiny app)
+      A --recent data--> H(Local monitoring Shiny app)
+      style E fill:#f00,stroke:#333,stroke-width:4px,color:white
+```
+
+::: {.notes}
+* Why do we use s3?
+* How does that benefit us?
+:::
+
+
 
 
 ## But we should collect the data from _all_ the sensors!
@@ -47,6 +185,17 @@ flowchart LR
 * all the things
 
 ![](images/all_the_things.png){align=center}
+
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+
+
+
+
+
 
 ## Just use a database!
 
@@ -58,6 +207,12 @@ flowchart LR
 * We'd need to write and test database retry logic
   - Or accpet possible loss of data
 * Who will support this? Me?
+
+
+
+
+
+
 
 ## So wrap the database with an API!
 

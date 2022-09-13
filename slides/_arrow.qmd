@@ -1,7 +1,3 @@
----
-title: "Arrow"
-format: revealjs
----
 
 ## Introducing Arrow
 
