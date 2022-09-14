@@ -1,11 +1,13 @@
 ---
 title: "Firing an Arrow into the internet of things:"
-subtitle: "combining the power of Arrow, Raspberry Pi & Shiny"
+subtitle: "Combining the power of Arrow, Raspberry Pi & Shiny"
 author: "Nic Crane & Mark Sellors"
 format:
   revealjs:
     incremental: false
     theme: sky
+    view-distance: 20
+    # auto-stretch: true
 ---
 
 {{< include _r4pi.qmd >}}

@@ -1,4 +1,3 @@
-
 ## Project outline
 
 * What is it?
@@ -6,6 +5,7 @@
 
 ::: {.notes}
 Nic and I will describe an IoT project, built using a variety of tools, but all surfaced in a couple of Shiny apps.
+
 Whilst you might not be that interested in the project as a whole, hopefully there's something in amongst all of this that you can take away for your own Shiny applications.
 :::
 
@@ -13,12 +13,16 @@ Whilst you might not be that interested in the project as a whole, hopefully the
 
 
 
-## Project overview
+## Project overview{.smaller}
 
-Home office air quality study
+![](images/mikey-harris-kw0z6RyvC0s-unsplash.jpg){fig-align="center"}
+
+::: footer
+Photo by [Mikey Harris](https://unsplash.com/@mikeyharris) on [Unsplash](https://unsplash.com/s/photos/home-office).
+:::
 
 ::: {.notes}
-Speaker notes go here.
+Home office air quality study
 :::
 
 
@@ -28,15 +32,14 @@ Speaker notes go here.
 ## What does this look like?
 
 <br />
-<br />
 
 ```{mermaid}
-  flowchart LR;
-      A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
-      E --> F(Create model)
-      F --> G
-      E --> G(Production Shiny app)
-      A --recent data--> H(Local monitoring Shiny app)
+  flowchart TB;
+      A(Sensor Bundle)--all data-->E("Data storage<br />(AWS S3 using feather or parquet)")
+      E-->F(Create model)
+      F-->G
+      E-->G(Production Shiny app)
+      A--recent data-->H(Local monitoring Shiny app)
 ```
 
 ::: {.notes}
@@ -56,10 +59,9 @@ The aggregated data can then be used to model ventilation recommendations, provi
 ## Sensor Bundle
 
 <br />
-<br />
 
 ```{mermaid}
-  flowchart LR;
+  flowchart TB;
       A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
       E --> F(Create model)
       F --> G
@@ -73,9 +75,34 @@ The aggregated data can then be used to model ventilation recommendations, provi
 
 
 
-## Sensor Bundle continued...
+## Sensor Bundle continued...{.smaller}
 
-Big old picture of the sensor package and details of what it does
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/enviro-plus.webp)
+
+
+:::
+
+::: {.column width="50%"}
+<br />
+<br />
+<br />
+**Enviro+ for Raspberry Pi**
+
+* Temperature, pressure, humidity sensor
+* Light and proximity sensor
+* Analog gas sensor
+* Sound level sensor
+
+:::
+::::
+
+::: footer
+Photo by [pimoroni.com](https://shop.pimoroni.com/products/enviro?variant=31155658457171)
+:::
 
 ::: {.notes}
 * What is it
@@ -102,10 +129,9 @@ Sample of the output
 ## Local Monitoring Shiny App
 
 <br />
-<br />
 
 ```{mermaid}
-  flowchart LR;
+  flowchart TB;
       A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
       E --> F(Create model)
       F --> G
@@ -127,9 +153,15 @@ Sample of the output
 
 ## Running R on a Raspberry Pi
 
-Brief overview of the R4Pi project
+![](images/r4pi.png){fig-align="center"}
+
+::: footer
+See [r4pi.org](https://r4pi.org) for more!
+:::
 
 ::: {.notes}
+Brief overview of the R4Pi project:
+
 * What is it
 * What's the point of it
 * How does it benefit R users
@@ -160,10 +192,9 @@ We only have a single sensor bundle, but the architecture we're talking about co
 ## Data storage
 
 <br />
-<br />
 
 ```{mermaid}
-  flowchart LR;
+  flowchart TB;
       A(Sensor Bundle) --all data--> E("Data storage<br />(AWS S3 using feather or parquet)")
       E --> F(Create model)
       F --> G
@@ -180,15 +211,12 @@ We only have a single sensor bundle, but the architecture we're talking about co
 
 
 
-## But we should collect the data from _all_ the sensors!
+## Collect data from _all_ the sensors!
 
-* all the things
-
-![](images/all_the_things.png){align=center}
-
+![](images/all_the_things.png){fig-align="center"}
 
 ::: {.notes}
-Speaker notes go here.
+This is essential for better predictions and greater insight into the local environment
 :::
 
 
