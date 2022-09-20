@@ -137,7 +137,33 @@ Let's take a look at the app!
 
 But...what does the architecture look like?
 
-## Why Arrow + Shiny
+## Shiny App Problem: Too Much Data
+
+Perfectly good workflow usually!
+
+```{mermaid}
+flowchart TB
+  A[Download all data into app from S3 bucket] --> B[Analyse data in Shiny app]
+  B --> C[Visualise data]
+```
+
+## Shiny App Solution: Iteratively Download Data
+
+```{mermaid}
+flowchart TB
+  A[Download 1 file at a time into app from S3 bucket] --> B[Filter data, retain relevant rows, discard unused data]
+  B --> A
+  B --> C[Analyse data in Shiny app]
+  C --> D[Visualise data]
+```
+
+## Shiny App Solution: Arrow Datasets on S3
+
+```{mermaid}
+flowchart TB
+  A[Create an Arrow Dataset with an S3 URI] --> B[Analyse data and download only relevant data]
+  B --> C[Visualise data]
+```
 
 
 
