@@ -165,6 +165,9 @@ flowchart TB
   B --> C[Visualise data]
 ```
 
+## Why is Arrow on S3 Efficient?
 
+- coalescing
+- concurrency
 
 
