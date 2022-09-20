@@ -1,40 +1,144 @@
-
 ## Introducing Arrow
 
-* larger than memory data
-* Acero
-* datasets
-* R bindings to dplyr and tidyverse functions
-  * lubridate
-  * stringr
-  * request any which aren't implemented that you'd like!
-  
-## Arrow
+::: columns
+::: {.column width="40%"}
+-   Larger-than-memory data
 
-* larger-than-memory != big data (necessarily)
+-   Data on S3 and other cloud storage providers
 
-
-::: {.notes}
-* when demonstrating Arrow we often use New York taxis dataset (describe)
-* then show a dplyr pipeline and some sort of timed comparison running with in dplyr and loading it all into memory versus with Arrow
+-   Use dplyr verbs and tidyverse functions for data manipulation
 :::
+
+::: {.column width="60%"}
+![](images/arrow-hex.png){fig-align="right" width="200"}
+:::
+:::
+
+## Arrow Datasets Example
+
+```{r, eval = FALSE}
+library(arrow)
+library(dplyr)
+nyc_taxi <- open_dataset("~/Datasets/nyc-taxi")
+nyc_taxi %>%
+  filter(year %in% 2017:2021) %>% 
+  group_by(year) %>%
+  summarize(
+    all_trips = n(),
+    shared_trips = sum(passenger_count > 1, na.rm = TRUE)
+  ) %>%
+  mutate(pct_shared = shared_trips / all_trips * 100) %>%
+  collect()
+```
+
+See more detail at: <https://arrow-user2022.netlify.app/hello-arrow.html>
 
 ## Why Arrow on Pi?
 
-* can analyse all your data, not just what can fit in memory
-* local monitoring can have longer history
-* analyse logs with Datasets API
+-   Larger-than-memory != big data (necessarily)
+-   More history, not constrained by memory, do all on device
+-   Arrow's Datasets API
+    -   Fast analysis of CSV and other text-delimited formats
+    -   Even faster with Parquet
 
-## Why Arrow and Shiny
+## How Much Difference Does this Make?
 
-* talk about case studies
+1Gb log files with 1Gb RAM
 
-## Let's see this in action
+Methods to try:
 
-::: {.notes}
-* show the local monitoring Shiny app
-* show simulations of analyses on 1Gb RAM machines??
-* show the S3 functionality of the global Shiny app (normally you'd have to pull all of it into your app or manage it in a DB)
+::: {.incremental}
+
+1.  Load everything via something fast (vroom)
+2.  Batching via vroom
+3.  Raw log files (arrow)
+4.  Parquet files (arrow)
+
 :::
- 
- 10-12 mins each
+
+## How Much Difference Does this Make? Results
+
+1Gb log files with 1Gb RAM
+
++-----------------------------------------+-------------------------------------+
+| Method                                  | Median time (ms)                    |
++=========================================+====================================:+
+| 1.  Load it all in with vroom           | NA - fell over as ran out of memory |
++-----------------------------------------+-------------------------------------+
+| 2.  Batching via vroom                  | 141672                              |
++-----------------------------------------+-------------------------------------+
+| 3.  Raw (CSV) log files (arrow)         | 1154                                |
++-----------------------------------------+-------------------------------------+
+| 4.  Parquet files (arrow)               | 433                                 |
++-----------------------------------------+-------------------------------------+
+
+## Why is Arrow + Parquet Efficient?
+
+- Parquet
+  - Column-based storage
+  - In built-compression and efficient encoding (run-length encoding + dictionary encoding)
+  - Contains metadata
+
+## Parquet metadata example
+
+```{python, eval = FALSE}
+import pyarrow.parquet as pq
+parquet_file = pq.ParquetFile('./data/generated-parquet/sensor=1/part-0.parquet')
+parquet_file.metadata.row_group(0).column(0)
+```
+
+```
+<pyarrow._parquet.ColumnChunkMetaData object at 0x7efc4b300ea0>
+  file_offset: 135519
+  file_path: 
+  physical_type: INT64
+  num_values: 15452
+  path_in_schema: datetime
+  is_stats_set: True
+  statistics:
+    <pyarrow._parquet.Statistics object at 0x7efc4b300630>
+      has_min_max: True
+      min: 2022-05-02 00:39:01.728328
+      max: 2022-05-13 18:10:01.532445
+      null_count: 0
+      distinct_count: 0
+      num_values: 15452
+      physical_type: INT64
+      logical_type: Timestamp(isAdjustedToUTC=false, timeUnit=microseconds, is_from_converted_type=false, force_set_converted_type=false)
+      converted_type (legacy): NONE
+  compression: SNAPPY
+  encodings: ('RLE_DICTIONARY', 'PLAIN', 'RLE')
+  has_dictionary_page: True
+  dictionary_page_offset: 4
+  data_page_offset: 108358
+  total_compressed_size: 135515
+  total_uncompressed_size: 150791
+```
+
+## Why is Arrow + Parquet Efficient?
+
+- Arrow Datasets API
+  - can take advantage of Parquet metadata
+  - Predicate pushdown
+  - Projection pushdown
+
+Other advantages of storing data in Parquet format:
+- Doing data engineering up front saves time later
+- Define schema at time of write
+
+## Why Arrow + Shiny
+
+Q: Which of our sensors are dodgy?
+("dodgy" = 100 or more NA readings on the temperature sensor)
+
+Let's take a look at the app!
+
+(video of doing stuff with the app)
+
+But...what does the architecture look like?
+
+## Why Arrow + Shiny
+
+
+
+
