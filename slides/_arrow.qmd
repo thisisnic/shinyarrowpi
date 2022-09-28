@@ -10,13 +10,15 @@
 :::
 
 ::: {.column width="60%"}
-![](images/arrow-hex.png){fig-align="right" width="200"}
+![](images/arrow-hex.png){fig-align="right" width="300"}
 :::
 :::
 
 ## Arrow Datasets Example
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
+#| echo: true
 library(arrow)
 library(dplyr)
 nyc_taxi <- open_dataset("~/Datasets/nyc-taxi")
@@ -31,7 +33,9 @@ nyc_taxi %>%
   collect()
 ```
 
-See more detail at: <https://arrow-user2022.netlify.app/hello-arrow.html>
+See more detail on this example at:
+
+<https://arrow-user2022.netlify.app/hello-arrow.html>
 
 ## Why Arrow on Pi?
 
@@ -60,17 +64,14 @@ Methods to try:
 
 1Gb log files with 1Gb RAM
 
-+-----------------------------------------+-------------------------------------+
-| Method                                  | Median time (ms)                    |
-+=========================================+====================================:+
-| 1.  Load it all in with vroom           | NA - fell over as ran out of memory |
-+-----------------------------------------+-------------------------------------+
-| 2.  Batching via vroom                  | 141672                              |
-+-----------------------------------------+-------------------------------------+
-| 3.  Raw (CSV) log files (arrow)         | 1154                                |
-+-----------------------------------------+-------------------------------------+
-| 4.  Parquet files (arrow)               | 433                                 |
-+-----------------------------------------+-------------------------------------+
+::: {.incremental}
+
+1.  Load everything via something fast (vroom): NA - fell over as ran out of memory
+2.  Batching via vroom - 141672ms
+3.  Raw log files (arrow) - 1154ms
+4.  Parquet files (arrow) - 433ms
+
+:::
 
 ## Why is Arrow + Parquet Efficient?
 
@@ -123,17 +124,23 @@ parquet_file.metadata.row_group(0).column(0)
   - Projection pushdown
 
 Other advantages of storing data in Parquet format:
-- Doing data engineering up front saves time later
+
+- Doing data engineering up front saves time later (and overcomes limitations of CSVs)
 - Define schema at time of write
 
 ## Why Arrow + Shiny
 
-Q: Which of our sensors are dodgy?
+> Q: Which of our sensors are dodgy?
 ("dodgy" = 100 or more NA readings on the temperature sensor)
 
 Let's take a look at the app!
 
-(video of doing stuff with the app)
+## Why Arrow + Shiny
+
+> Q: Which of our sensors are dodgy?
+("dodgy" = 100 or more NA readings on the temperature sensor)
+
+Let's take a look at the app!
 
 But...what does the architecture look like?
 
